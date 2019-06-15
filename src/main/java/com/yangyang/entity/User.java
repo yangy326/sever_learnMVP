@@ -19,6 +19,16 @@ public class User {
 
     private Date createTime;
 
+    private String pushId;
+
+    public String getPusgId() {
+        return pushId;
+    }
+
+    public void setPusgId(String pusgId) {
+        this.pushId = pusgId;
+    }
+
     public void setUserId(Integer userId) {
         this.userId = userId;
     }

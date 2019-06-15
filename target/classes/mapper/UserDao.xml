@@ -10,6 +10,13 @@
   where user_account = #{userAcount}
  </select>
 
+ <select id="findByPassword" resultType="com.yangyang.entity.User">
+  SELECT user_id user_account,user_name,user_password,user_token,user_image
+ ,user_sex,create_time
+ from user
+  where user_password = #{userPassword}
+ </select>
+
  <insert id="createUser" useGeneratedKeys="true" keyColumn="user_id"
          keyProperty="userId">
   INSERT INTO
@@ -20,6 +27,65 @@ VALUES
  #{userSex},#{createTime})
  </insert>
 
+ <insert id="follow" useGeneratedKeys="true" keyColumn="id"
+         keyProperty="id">
+  INSERT INTO
+ userfollow(origin_id,target_id,
+ create_time)
+VALUES
+ (#{originId},#{targetId},#{createTime})
+ </insert>
+
+ <select id="login" resultType="com.yangyang.entity.User">
+ SELECT *
+ FROM user
+ where user_account = #{userAccount}
+ and user_password = #{userPassword}
+
+ </select>
+
+ <select id="isFollow" resultType="com.yangyang.entity.UserFollow">
+ SELECT *
+ FROM userfollow
+ where origin_id = #{originId}
+ and target_id = #{targetId}
+
+ </select>
+
+
+ <select id="findById" resultType="com.yangyang.entity.User">
+ SELECT *
+ FROM user
+ where user_id = #{userId}
+
+ </select>
+
+ <select id="getRealFriend" resultType="com.yangyang.entity.User">
+ SELECT *
+ FROM user
+ where user_id = #{userId}
+
+ </select>
+
+ <select id="findByToken" resultType="com.yangyang.entity.User">
+ SELECT *
+ FROM user
+ where user_token = #{userToken}
+ </select>
+
+ <select id="search" resultType="com.yangyang.entity.User">
+ SELECT *
+ FROM user
+ where user_name = #{userName}
+ </select>
+
+
+
+ <select id="getFriend" resultType="com.yangyang.entity.UserFollow">
+ SELECT *
+ FROM userfollow
+ where origin_id = #{originId}
+ </select>
 
  <select id="queryUser" resultType="com.yangyang.entity.User">
  SELECT user_id user_account,user_name,user_password,user_token,user_image
@@ -28,10 +94,28 @@ VALUES
  ORDER BY user_id DESC
  </select>
 
- <update id="updateUser" parameterType="com.yangyang.entity.User">
+ <update id="updateUserByToken" >
+  update user
+  <set>
+
+  </set>
+  where user_id = #{userId}
+ </update>
+ <update id="bind" >
   update user
   <set>
    <if test="userToken != null"> user_token=#{userToken},</if>
+
+   <if test="pushId != null"> push_id=#{pushId},</if>
+
+  </set>
+  where user_id = #{userId}
+ </update>
+
+ <update id="updateUser" parameterType="com.yangyang.entity.User">
+  update user
+  <set>
+   <if test="userToken != null"> user_token=#{0},</if>
    <if test="userImage != null"> user_image=#{userImage},</if>
   </set>
   where user_id = #{userId}

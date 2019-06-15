@@ -16,8 +16,11 @@ public class UserServiceTest extends BaseTest {
 
     @Test
     public void testBQueryArea(){
-//        List<User> areaList = userService.getUserList();
-//        assertEquals("yangyang", areaList.get(0).getUserName());
+//int user = userService.updateUserByToken("12312",1);
+//if (user == 1){
+//    System.out.println("sadfsdafasdfsdf");
+//}
+
     }
 
 }

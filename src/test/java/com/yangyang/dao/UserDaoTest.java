@@ -30,12 +30,7 @@ public class UserDaoTest extends BaseTest {
 		user.setUserImage("http://www.baidu.com");
 
 		user.setCreateTime(new Date());
-		int num = userDao.updateUser(user);
-
-		if (num == 4){
-			System.out.println("ok");
-		}
-
+		//
 	}
 
 
